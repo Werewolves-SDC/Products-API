@@ -17,6 +17,7 @@ pool.on('connect', () => {
   console.log('connected to the database');
 });
 
+// receives query info from routes
 module.exports = {
   query: (text, params) => {
     pool.query(text, params)

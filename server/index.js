@@ -4,12 +4,16 @@ const express = require('express');
 const App = require('express');
 require('dotenv').config;
 const path = require('path');
+// routes uses custom constructed middelware based on
+// express-promise-router
+const routes = require('./routes/products_routes.js');
 
 const app = App();
 const db = require('../database/index.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 const logger = (req, res, next) => {
   console.log(`A ${req.method} request was made to the ${req.url} endpoint`);
   if (req.body && Object.keys(req.body).length) {
@@ -19,6 +23,7 @@ const logger = (req, res, next) => {
 };
 
 app.use(logger);
+app.use('/', routes);
 
 app.listen(process.env.PORT || 3000, (err) => {
   if (err) {
@@ -26,8 +31,3 @@ app.listen(process.env.PORT || 3000, (err) => {
   }
   console.log('server connected');
 });
-
-// for testing db connection
-(async function () {
-  await db.query('SELECT NOW()');
-}());
