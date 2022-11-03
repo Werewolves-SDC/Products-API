@@ -12,33 +12,25 @@ const csvStringifier = createCsvStringifier({
   header: [
     {
       id: 'id',
+      title: 'id',
+    },
+    {
+      id: 'id',
       title: 'product_id',
     },
     {
-      id: 'name',
-      title: 'name',
+      id: 'feature',
+      title: 'feature',
     },
     {
-      id: 'slogan',
-      title: 'slogan',
-    },
-    {
-      id: 'description',
-      title: 'description',
-    },
-    {
-      id: 'category',
-      title: 'category',
-    },
-    {
-      id: 'default_price',
-      title: 'default_price',
+      id: 'value',
+      title: 'value',
     },
   ],
 });
 
-const streamer = fs.createReadStream('../csv_files/product.csv');
-const writer = fs.createWriteStream('../csv_files/clean_product.csv');
+const streamer = fs.createReadStream('../csv_files/features.csv');
+const writer = fs.createWriteStream('../csv_files/clean_features.csv');
 
 class CSVCleaner extends Transform {
   constructor(options) {
@@ -53,10 +45,6 @@ class CSVCleaner extends Transform {
         delete chunk[key];
       }
     }
-    const onlyNumbersAllowed = chunk.default_price.replace(/\D/g, '');
-    chunk.default_price = onlyNumbersAllowed;
-    const makeCurrencyType = (chunk.default_price * 10) / 100;
-    chunk.default_price = makeCurrencyType;
 
     chunk = csvStringifier.stringifyRecords([chunk]);
 
