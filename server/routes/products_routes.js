@@ -20,7 +20,7 @@ router.get('/product/:id', async (req, res) => {
   console.log('rows', rows);
   res.status(200).json(rows);
 });
-
+// styleDetails.API
 router.get('/styles/:id', async (req, res) => {
   const { id } = req.params;
   const { rows: styles } = await db.query(query.styles, [id]);
