@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS "photos" (
 CREATE TABLE IF NOT EXISTS "skus" (
   "id" SERIAL NOT NULL,
   "style_id" INT NOT NULL,
-  "size" VARCHAR(10),
+  "size" VARCHAR(100),
   "quantity" INT,
   PRIMARY KEY ("id")
 );
