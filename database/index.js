@@ -19,9 +19,7 @@ pool.on('connect', () => {
 
 // receives query info from routes
 module.exports = {
-  query: (text, params) => {
-    pool.query(text, params)
-      .then((res) => console.log(res.rows))
-      .catch(console.log);
-  },
+  query: (text, params) => pool.query(text, params)
+    .catch(console.log),
+
 };
