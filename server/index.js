@@ -9,7 +9,6 @@ const path = require('path');
 const routes = require('./routes/products_routes.js');
 
 const app = App();
-const db = require('../database/index.js');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
