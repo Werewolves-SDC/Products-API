@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
 const Router = require('express-promise-router');
 const db = require('../../database/index.js');
@@ -12,13 +13,16 @@ router.get('/test', async (req, res) => {
   await db.query('SELECT NOW()');
   res.send();
 });
-// fetch a single product
+// fetch a single product -- products_features
 router.get('/product/:id', async (req, res) => {
   const { id } = req.params;
   console.log('Single Product Requested');
-  const { rows } = await db.query(query.oneProduct, [id]);
-  console.log('rows', rows);
-  res.status(200).json(rows);
+  const { rows: product } = await db.query(query.oneProduct, [id]);
+  const { rows: features } = await db.query(query.featuresByProduct, [id]);
+  const productsInfo = product[0];
+  productsInfo.features = features[0];
+  // console.log('productsInfo', productsInfo);
+  res.status(200).json(productsInfo);
 });
 // styleDetails.API
 router.get('/styles/:id', async (req, res) => {
