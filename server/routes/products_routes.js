@@ -21,7 +21,6 @@ router.get('/product/:id', async (req, res) => {
   const { rows: features } = await db.query(query.featuresByProduct, [id]);
   const productsInfo = product[0];
   productsInfo.features = features[0];
-  // console.log('productsInfo', productsInfo);
   res.status(200).json(productsInfo);
 });
 // styleDetails.API
