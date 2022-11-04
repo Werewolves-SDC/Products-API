@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-expressions */
 const express = require('express');
 const App = require('express');
-require('dotenv').config;
+require('dotenv').config();
 const path = require('path');
 // routes uses custom constructed middelware based on
 // express-promise-router
@@ -25,9 +25,9 @@ const logger = (req, res, next) => {
 app.use(logger);
 app.use('/', routes);
 
-app.listen(process.env.PORT || 3000, (err) => {
+app.listen(process.env.PORT, (err) => {
   if (err) {
     console.log(err);
   }
-  console.log('server connected');
+  console.log(`server connected on ${process.env.PORT}`);
 });
