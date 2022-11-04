@@ -12,6 +12,10 @@ const csvStringifier = createCsvStringifier({
   header: [
     {
       id: 'id',
+      title: 'style_id',
+    },
+    {
+      id: 'productId',
       title: 'product_id',
     },
     {
@@ -19,26 +23,22 @@ const csvStringifier = createCsvStringifier({
       title: 'name',
     },
     {
-      id: 'slogan',
-      title: 'slogan',
+      id: 'original_price',
+      title: 'original_price',
     },
     {
-      id: 'description',
-      title: 'description',
+      id: 'sale_price',
+      title: 'sale_price',
     },
     {
-      id: 'category',
-      title: 'category',
-    },
-    {
-      id: 'default_price',
-      title: 'default_price',
+      id: 'default_style',
+      title: 'default',
     },
   ],
 });
 
-const streamer = fs.createReadStream('../csv_files/product.csv');
-const writer = fs.createWriteStream('../csv_files/clean_product.csv');
+const streamer = fs.createReadStream('../csv_files/styles.csv');
+const writer = fs.createWriteStream('../csv_files/clean_styles.csv');
 
 class CSVCleaner extends Transform {
   constructor(options) {
@@ -53,13 +53,16 @@ class CSVCleaner extends Transform {
         delete chunk[key];
       }
     }
-    const onlyNumbersAllowed = chunk.default_price.replace(/\D/g, '');
-    chunk.default_price = onlyNumbersAllowed;
-    const makeCurrencyType = (chunk.default_price * 10) / 100;
-    chunk.default_price = makeCurrencyType;
+    const originalPriceNumbersAllowed = chunk.original_price.replace(/\D/g, '');
+    chunk.original_price = originalPriceNumbersAllowed;
+    const salePriceNumbersAllowed = chunk.original_price.replace(/\D/g, '');
+    chunk.original_price = salePriceNumbersAllowed;
+    const originalPriceMultiplier = (chunk.original_price * 10) / 100;
+    chunk.original_price = originalPriceMultiplier;
+    // const productIDNumsOnly = chunk.original_price.replace(/\D/g, '');
+    // chunk.productIDNumsOnly = productIDNumsOnly;
 
     chunk = csvStringifier.stringifyRecords([chunk]);
-
     this.push(chunk);
     next();
   }
