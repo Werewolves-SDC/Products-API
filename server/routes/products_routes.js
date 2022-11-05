@@ -43,10 +43,10 @@ router.get('/styles/:id', async (req, res) => {
   styleDetails.results = styles;
   res.status(200).send(styleDetails);
 });
-
-router.get('/features/:id', async (req, res) => {
+// related;
+router.get('/related/:id', async (req, res) => {
   const { id } = req.params;
-  const { rows } = await db.query(query.featuresByProduct, [id]);
-  console.log(rows);
-  res.status(200).json(rows);
+  const { rows: relatedProducts } = await db.query(query.relatedProducts, [id]);
+  console.log(relatedProducts);
+  res.status(200).send(relatedProducts);
 });
