@@ -1,5 +1,5 @@
-CREATE DATABASE sdc_products_container;
-\c sdc_products_container;
+-- CREATE DATABASE sdc_products;
+\c sdc_products;
 
 CREATE TABLE IF NOT EXISTS "products" (
   "id" SERIAL NOT NULL,
@@ -55,20 +55,29 @@ CREATE TABLE IF NOT EXISTS "cart" (
   PRIMARY KEY ("id")
 );
 
-CREATE INDEX idx_styleID_styles
-ON styles(style_id);
+CREATE TABLE IF NOT EXISTS "related" (
+  "id" SERIAL NOT NULL,
+  "current_product_id" INT NOT NULL,
+  "related_product_id" INT NOT NULL
+);
 
-CREATE INDEX idx_product_id_products
-ON products(product_id);
+-- CREATE INDEX idx_styleID_styles
+-- ON styles(style_id);
 
-CREATE INDEX idx_photos_styleId
-ON photos(style_id);
+-- CREATE INDEX idx_product_id_products
+-- ON products(product_id);
 
-CREATE INDEX idx_features_product_id
-ON features(product_id);
+-- CREATE INDEX idx_photos_styleId
+-- ON photos(style_id);
 
-CREATE INDEX idx_skus_styleId
-ON skus(style_id);
+-- CREATE INDEX idx_features_product_id
+-- ON features(product_id);
+
+-- CREATE INDEX idx_skus_styleId
+-- ON skus(style_id);
+
+CREATE INDEX idx_related_product_id
+  ON related(current_product_id);
 
 -- for testing:
 
