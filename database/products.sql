@@ -76,8 +76,8 @@ CREATE TABLE IF NOT EXISTS "related" (
 -- CREATE INDEX idx_skus_styleId
 -- ON skus(style_id);
 
-CREATE INDEX idx_related_product_id
-  ON related(current_product_id);
+-- CREATE INDEX idx_related_product_id
+--   ON related(current_product_id);
 
 -- for testing:
 
@@ -91,6 +91,12 @@ CREATE INDEX idx_related_product_id
 
 -- DROP INDEX idx_styleID_styles;
 
-
+-- \COPY products FROM 'csv_files/clean_product.csv' DELIMITER ',' CSV HEADER;
+-- \COPY features FROM 'csv_files/clean_features.csv' DELIMITER ',' CSV HEADER;
+-- \COPY styles FROM 'csv_files/clean_styles.csv' DELIMITER ',' CSV HEADER;
+-- \COPY photos FROM 'csv_files/clean_photos.csv' DELIMITER ',' CSV HEADER;
+-- \COPY skus FROM 'csv_files/clean_skus.csv' DELIMITER ',' CSV HEADER;
+-- \COPY cart FROM 'csv_files/clean_cart.csv' DELIMITER ',' CSV HEADER; ***DID NOT USE***
+-- \COPY related FROM 'csv_files/clean_related.csv' DELIMITER ',' CSV HEADER;
 
 -- psql sdc_products < products.sql
