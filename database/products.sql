@@ -1,5 +1,3 @@
--- CREATE DATABASE sdc_products;
-\c sdc_products;
 
 CREATE TABLE IF NOT EXISTS "products" (
   "id" SERIAL NOT NULL,
@@ -23,7 +21,6 @@ CREATE TABLE IF NOT EXISTS "features" (
 CREATE TABLE IF NOT EXISTS "styles" (
   "id" SERIAL NOT NULL,
   "style_id" INT NOT NULL,
-  "product_id" INT NOT NULL,
   "name" VARCHAR(100) NOT NULL,
   "original_price" DECIMAL NOT NULL,
   "sale_price" DECIMAL,
@@ -61,23 +58,28 @@ CREATE TABLE IF NOT EXISTS "related" (
   "related_product_id" INT NOT NULL
 );
 
--- CREATE INDEX idx_styleID_styles
--- ON styles(style_id);
+CREATE INDEX idx_styleID_styles
+ON styles(style_id);
 
--- CREATE INDEX idx_product_id_products
--- ON products(product_id);
+CREATE INDEX idx_product_id_products
+ON products(product_id);
 
--- CREATE INDEX idx_photos_styleId
--- ON photos(style_id);
+CREATE INDEX idx_photos_styleId
+ON photos(style_id);
 
--- CREATE INDEX idx_features_product_id
--- ON features(product_id);
+CREATE INDEX idx_features_product_id
+ON features(product_id);
 
--- CREATE INDEX idx_skus_styleId
--- ON skus(style_id);
+CREATE INDEX idx_skus_styleId
+ON skus(style_id);
 
--- CREATE INDEX idx_related_product_id
---   ON related(current_product_id);
+CREATE INDEX idx_related_product_id
+  ON related(current_product_id);
+
+INSERT INTO products(product_id, name, slogan, description, category, default_price) VALUES
+  (1, "test", "sooper-dooper!", "this should not break", "tester", 900),
+  (2, "test-2", "yup!", "this really shouldn't break", "tester-2", 1800),
+  (3, "test-2", "uh-huh", "I mean it, this really shouldn't break", "tester-3", 2700)
 
 -- for testing:
 
