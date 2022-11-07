@@ -3,10 +3,10 @@
 const express = require('express');
 const App = require('express');
 require('dotenv').config();
-const path = require('path');
+require('./db_connection');
 // routes uses custom constructed middelware based on
 // express-promise-router
-const routes = require('./routes/products_routes.js');
+const apply_routes = require('./routes');
 
 const app = App();
 
@@ -22,11 +22,36 @@ const logger = (req, res, next) => {
 };
 
 app.use(logger);
-app.use('/', routes);
+apply_routes(app);
 
-app.listen(process.env.PORT, (err) => {
+app.listen(process.env.SERVER_PORT, '0.0.0.0', (err) => {
   if (err) {
     console.log(err);
   }
-  console.log(`server connected on ${process.env.PORT}`);
+  console.log(`server connected on ${process.env.SERVER_PORT}`);
 });
+
+// TODO: move server start to db_connection to make sure db is started
+// before servber is listening
+
+/*
+
+export const startServer = () => {
+  app.listen(process.env.SERVER_PORT, '0.0.0.0', (err) => {
+    if (err) {
+      console.log("Could not start server:", err);
+      setTimeout(startServer, 1000);
+    }
+    console.log('server connected on ${process.env.SERVER_PORT});
+  })
+}
+
+startServer();
+
+pool.connect();
+
+pool.on('connect', () => {
+  console.log("Database connected...");
+  startServer();
+})
+*/
