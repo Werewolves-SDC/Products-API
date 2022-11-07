@@ -1,8 +1,8 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
 const Router = require('express-promise-router');
-const db = require('../../database/index.js');
-const query = require('../../database/queries.js');
+const db = require('../db_connection.js');
+const query = require('../queries.js');
 
 const router = new Router();
 module.exports = router;
@@ -10,8 +10,8 @@ module.exports = router;
 router.get('/test', async (req, res) => {
   console.log('test route');
   // test db connection
-  await db.query('SELECT NOW()');
-  res.send();
+  // await db.query('SELECT NOW()');
+  res.status(200).send('hello world');
 });
 // fetch a single product -- products_features
 router.get('/product/:id', async (req, res) => {
