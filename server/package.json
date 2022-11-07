@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint",
-    "start": "npx nodemon server /server/index.js --watch"
+    "start": "npx nodemon server /server/index.js --watch",
+    "start-db": "npx nodemon server /server/db_connection.js --watch"
   },
   "repository": {
     "type": "git",

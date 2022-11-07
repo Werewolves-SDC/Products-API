@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
 const Router = require('express-promise-router');
-const db = require('../db_connection.js');
+const db = require('../index.js');
 const query = require('../queries.js');
 
 const router = new Router();

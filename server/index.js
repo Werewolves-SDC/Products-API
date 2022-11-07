@@ -3,8 +3,8 @@
 const express = require('express');
 const App = require('express');
 require('dotenv').config();
-require('./db_connection');
-// routes uses custom constructed middelware based on
+const { Pool } = require('pg');
+// routes uses custom constructed middleware based on
 // express-promise-router
 const apply_routes = require('./routes');
 
@@ -24,34 +24,44 @@ const logger = (req, res, next) => {
 app.use(logger);
 apply_routes(app);
 
-app.listen(process.env.SERVER_PORT, '0.0.0.0', (err) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log(`server connected on ${process.env.SERVER_PORT}`);
-});
+// db connection logic
 
-// TODO: move server start to db_connection to make sure db is started
-// before servber is listening
+const config = {
+  password: process.env.PG_PASS,
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+};
 
-/*
+const pool = new Pool(config);
 
-export const startServer = () => {
+// receives query info from routes
+module.exports = {
+  query: (text, params) => pool.query(text, params)
+    .catch(console.log),
+};
+// **************************
+// Start server only after db pool is connected
+
+const startServer = () => {
   app.listen(process.env.SERVER_PORT, '0.0.0.0', (err) => {
     if (err) {
-      console.log("Could not start server:", err);
+      console.log('err, attempting restart.....', err);
       setTimeout(startServer, 1000);
     }
-    console.log('server connected on ${process.env.SERVER_PORT});
-  })
-}
-
-startServer();
+    console.log(`node server connected on port: ${process.env.SERVER_PORT}`);
+  });
+};
 
 pool.connect();
-
+// connection events -->
 pool.on('connect', () => {
-  console.log("Database connected...");
+  console.log('postgres pool connected, awaiting queries...');
   startServer();
-})
-*/
+});
+pool.on('acquire', () => {
+  console.log('PG client acquired...');
+});
+pool.on('error', (err) => {
+  console.log('error connecting db_pool', err);
+});
