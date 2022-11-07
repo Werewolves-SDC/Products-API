@@ -77,9 +77,9 @@ CREATE INDEX idx_related_product_id
   ON related(current_product_id);
 
 INSERT INTO products(product_id, name, slogan, description, category, default_price) VALUES
-  (1, "test", "sooper-dooper!", "this should not break", "tester", 900),
-  (2, "test-2", "yup!", "this really shouldn't break", "tester-2", 1800),
-  (3, "test-2", "uh-huh", "I mean it, this really shouldn't break", "tester-3", 2700)
+  (DEFAULT, 1, "test", "sooper-dooper!", "this should not break", "tester", 900),
+  (DEFAULT, 2, "test-2", "yup!", "this really shouldn't break", "tester-2", 1800),
+  (DEFAULT, 3, "test-2", "uh-huh", "I mean it, this really shouldn't break", "tester-3", 2700)
 
 -- for testing:
 
