@@ -76,14 +76,16 @@ ON skus(style_id);
 CREATE INDEX idx_related_product_id
   ON related(current_product_id);
 
-INSERT INTO products(DEFAULT,product_id, name, slogan, description, category, default_price) VALUES
-  (DEFAULT, 1, "test", "sooper-dooper!", "this should not break", "tester", 900),
-  (DEFAULT, 2, "test-2", "yup!", "this really shouldn't break", "tester-2", 1800),
-  (DEFAULT, 3, "test-2", "uh-huh", "I mean it, this really shouldn't break", "tester-3", 2700)
+INSERT INTO products(id, product_id, name, slogan, description, category, default_price) VALUES
+  (DEFAULT, 1, 'test', 'sooper-dooper!', 'this should not break', 'tester', 900),
+  (DEFAULT, 2, 'test-2', 'yup!', 'this really shouldn't break', 'tester-2', 1800),
+  (DEFAULT, 3, 'test-2', 'uh-huh', 'I mean it, this really shouldn't break', 'tester-3', 2700)
 
 INSERT INTO features(DEFAULT, product_id, feature, value) VALUES
-  (DEFAULT, 1, "Assert Talky talky", "Should say -- Watson, come here!"),
-  (DEFAULT, 1, "Does it work?", "Should not blow up")
+  (DEFAULT, 1, 'Assert Talky talky', 'Should say -- Watson, come here!'),
+  (DEFAULT, 1, 'Does it work?', 'Should not blow up')
+
+
 -- for testing:
 
 -- DROP INDEX idx_product_id_products;
