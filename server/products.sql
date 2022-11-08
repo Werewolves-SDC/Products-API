@@ -81,6 +81,9 @@ INSERT INTO products(DEFAULT,product_id, name, slogan, description, category, de
   (DEFAULT, 2, "test-2", "yup!", "this really shouldn't break", "tester-2", 1800),
   (DEFAULT, 3, "test-2", "uh-huh", "I mean it, this really shouldn't break", "tester-3", 2700)
 
+INSERT INTO features(DEFAULT, product_id, feature, value) VALUES
+  (DEFAULT, 1, "Assert Talky talky", "Should say -- Watson, come here!"),
+  (DEFAULT, 1, "Does it work?", "Should not blow up")
 -- for testing:
 
 -- DROP INDEX idx_product_id_products;
