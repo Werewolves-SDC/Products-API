@@ -2,4 +2,6 @@ node_modules
 .env
 data
 cole-database.pem
+dataStore
+
 
