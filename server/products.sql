@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS "features" (
 CREATE TABLE IF NOT EXISTS "styles" (
   "id" SERIAL NOT NULL,
   "style_id" INT NOT NULL,
+  "product_id" INT NOT NULL,
   "name" VARCHAR(100) NOT NULL,
   "original_price" DECIMAL NOT NULL,
   "sale_price" DECIMAL,

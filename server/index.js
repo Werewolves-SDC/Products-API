@@ -2,6 +2,7 @@
 /* eslint-disable no-unused-expressions */
 const express = require('express');
 const App = require('express');
+const path = require('path');
 require('dotenv').config();
 require('./db_connection');
 // routes uses custom constructed middelware based on
@@ -22,6 +23,12 @@ const logger = (req, res, next) => {
 };
 
 app.use(logger);
+
+// for loader.io testing -->
+app.get('/loaderio-621d1fad739edff24f823a466f2d7218.text', (req, res) => {
+  res.send(path.join(__dirname, './loaderio.txt'));
+});
+
 apply_routes(app);
 
 app.listen(process.env.SERVER_PORT, '0.0.0.0', (err) => {
@@ -32,7 +39,7 @@ app.listen(process.env.SERVER_PORT, '0.0.0.0', (err) => {
 });
 
 // TODO: move server start to db_connection to make sure db is started
-// before servber is listening
+// before server is listening
 
 /*
 
