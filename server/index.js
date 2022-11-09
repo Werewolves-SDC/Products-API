@@ -21,8 +21,8 @@ const logger = (req, res, next) => {
   }
   next();
 };
-
-app.use(logger);
+// TODO: remove logger action from prod code
+// app.use(logger);
 
 // for loader.io testing -->
 app.use(express.static('./staticFiles'));
