@@ -25,9 +25,7 @@ const logger = (req, res, next) => {
 app.use(logger);
 
 // for loader.io testing -->
-app.get('/loaderio-621d1fad739edff24f823a466f2d7218.text', (req, res) => {
-  res.send(path.join(__dirname, './loaderio.txt'));
-});
+app.use(express.static('./staticFiles'));
 
 apply_routes(app);
 
@@ -62,3 +60,4 @@ pool.on('connect', () => {
   startServer();
 })
 */
+
