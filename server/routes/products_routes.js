@@ -17,8 +17,14 @@ router.get('/test', async (req, res) => {
 router.get('/product/:id', async (req, res) => {
   const { id } = req.params;
   console.log('Single Product Requested');
-  const { rows: product } = await db.query(query.oneProduct, [id]);
-  const { rows: features } = await db.query(query.featuresByProduct, [id]);
+  const [productsQuery, featuresQuery] = await Promise.all([
+    db.query(query.oneProduct, [id]),
+    db.query(query.featuresByProduct, [id]),
+  ]);
+
+  const product = productsQuery.rows;
+  const features = featuresQuery.rows;
+
   const productsInfo = product[0];
   productsInfo.features = features[0];
   res.status(200).json(productsInfo);
@@ -26,9 +32,17 @@ router.get('/product/:id', async (req, res) => {
 // styleDetails.API
 router.get('/styles/:id', async (req, res) => {
   const { id } = req.params;
-  // TODO: test promise.all to see if it speeds up response time
-  const { rows: styles } = await db.query(query.styles, [id]);
-  const { rows: photo_dump } = await db.query(query.photosByProduct, [id]);
+
+  const [
+    stylesQuery,
+    photosQuery,
+  ] = await Promise.all([
+    db.query(query.styles, [id]),
+    db.query(query.photosByProduct, [id]),
+  ]);
+  const styles = stylesQuery.rows;
+  const photo_dump = photosQuery.rows;
+
   const styleDetails = { product_id: id };
 
   styles.forEach((style) => {
