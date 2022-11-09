@@ -26,6 +26,7 @@ router.get('/product/:id', async (req, res) => {
 // styleDetails.API
 router.get('/styles/:id', async (req, res) => {
   const { id } = req.params;
+  // TODO: test promise.all to see if it speeds up response time
   const { rows: styles } = await db.query(query.styles, [id]);
   const { rows: photo_dump } = await db.query(query.photosByProduct, [id]);
   const styleDetails = { product_id: id };
