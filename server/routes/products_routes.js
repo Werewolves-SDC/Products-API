@@ -8,7 +8,7 @@ const router = new Router();
 module.exports = router;
 
 router.get('/test', async (req, res) => {
-  console.log('test route');
+  // console.log('test route');
   // test db connection
   // await db.query('SELECT NOW()');
   res.status(200).send('hello world');
@@ -16,7 +16,7 @@ router.get('/test', async (req, res) => {
 // fetch a single product -- products_features
 router.get('/product/:id', async (req, res) => {
   const { id } = req.params;
-  console.log('Single Product Requested');
+  // console.log('Single Product Requested');
   const [productsQuery, featuresQuery] = await Promise.all([
     db.query(query.oneProduct, [id]),
     db.query(query.featuresByProduct, [id]),
@@ -62,6 +62,6 @@ router.get('/styles/:id', async (req, res) => {
 router.get('/related/:id', async (req, res) => {
   const { id } = req.params;
   const { rows: relatedProducts } = await db.query(query.relatedProducts, [id]);
-  console.log(relatedProducts);
+  // console.log(relatedProducts);
   res.status(200).send(relatedProducts);
 });
