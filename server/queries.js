@@ -20,4 +20,13 @@ module.exports = {
   `,
 
   relatedProducts: 'SELECT related.related_product_id FROM related WHERE related.current_product_id= $1',
+
+  skus: `
+  SELECT skus.style_id, skus.id, skus.quantity, skus.size
+  FROM products
+  INNER JOIN styles
+  ON products.product_id = styles.product_id
+  INNER JOIN skus
+  ON styles.style_id = skus.style_id
+  WHERE styles.product_id= $1`,
 };

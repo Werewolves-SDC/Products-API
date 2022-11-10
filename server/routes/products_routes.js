@@ -36,14 +36,17 @@ router.get('/styles/:id', async (req, res) => {
   const [
     stylesQuery,
     photosQuery,
+    skusQuery,
   ] = await Promise.all([
     db.query(query.styles, [id]),
     db.query(query.photosByProduct, [id]),
+    db.query(query.skus, [id]),
   ]);
   const styles = stylesQuery.rows;
   const photo_dump = photosQuery.rows;
-
+  const skus_dump = skusQuery.rows;
   const styleDetails = { product_id: id };
+
 
   styles.forEach((style) => {
     style.photos = [];
@@ -51,6 +54,16 @@ router.get('/styles/:id', async (req, res) => {
       if (style.style_id === photo.style_id) {
         const { thumbnail_url, url } = photo;
         style.photos.push({ thumbnail_url, url });
+      }
+    });
+  });
+
+  styles.forEach((style) => {
+    style.skus = {};
+    skus_dump.forEach((sku) => {
+      if (style.style_id === sku.style_id) {
+        const { quantity, size } = sku;
+        style.skus[sku.id] = { quantity, size };
       }
     });
   });
