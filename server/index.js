@@ -2,14 +2,14 @@
 /* eslint-disable no-unused-expressions */
 const express = require('express');
 const App = require('express');
-const path = require('path');
 require('dotenv').config();
 require('./db_connection');
+const compression = require('compression');
 // routes uses custom constructed middelware based on
 // express-promise-router
-const apply_routes = require('./routes');
-
 const app = App();
+app.use(compression());
+const apply_routes = require('./routes');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -60,4 +60,3 @@ pool.on('connect', () => {
   startServer();
 })
 */
-
