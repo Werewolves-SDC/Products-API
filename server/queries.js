@@ -48,31 +48,31 @@ module.exports = {
   `,
 
   styleDetails: `
-   SELECT
-   styles.style_id AS "style_id",
-   styles.name,
-   styles.original_price,
-   styles.sale_price,
-   styles.default AS "default?",
-   (
-     SELECT jsonb_agg(jsonb_build_object(
-       'thumbnail_url', photos.thumbnail_url,
-       'url', photos.url
-       )) AS photos
-     FROM photos
-     WHERE styles.style_id = photos.style_id
-   ),
-   (
-     SELECT jsonb_agg(jsonb_build_object(
-       'id', skus.id,
-       'quantity', skus.quantity,
-       'size', skus.size
-     )) AS skus
-     FROM skus
-     WHERE styles.id = skus.style_id
-   )
-   FROM styles
-   WHERE styles.product_id= $1
+  SELECT
+  styles.style_id AS "style_id",
+  styles.name,
+  styles.original_price,
+  styles.sale_price,
+  styles.default AS "default?",
+  (
+    SELECT jsonb_agg(jsonb_build_object(
+      'thumbnail_url', photos.thumbnail_url,
+      'url', photos.url
+      )) AS photos
+    FROM photos
+    WHERE styles.style_id = photos.style_id
+  ),
+  (
+    SELECT jsonb_agg(jsonb_build_object(
+      'id', skus.id,
+      'quantity', skus.quantity,
+      'size', skus.size
+    )) AS skus
+    FROM skus
+    WHERE styles.style_id = skus.style_id
+  )
+  FROM styles
+  WHERE styles.product_id= $1
    `,
 
 };

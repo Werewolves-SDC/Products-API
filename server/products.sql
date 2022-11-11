@@ -1,3 +1,4 @@
+--DROPPED styles.id and named styles.style_id as PK
 
 CREATE TABLE IF NOT EXISTS "products" (
   "id" SERIAL NOT NULL,
@@ -19,14 +20,13 @@ CREATE TABLE IF NOT EXISTS "features" (
 );
 
 CREATE TABLE IF NOT EXISTS "styles" (
-  "id" SERIAL NOT NULL,
-  "style_id" INT NOT NULL,
+  "style_id" SERIAL NOT NULL,
   "product_id" INT NOT NULL,
   "name" VARCHAR(100) NOT NULL,
   "original_price" DECIMAL NOT NULL,
   "sale_price" DECIMAL,
   "default" BOOLEAN,
-  PRIMARY KEY ("id")
+  PRIMARY KEY ("style_id")
 );
 
 CREATE TABLE IF NOT EXISTS "photos" (
@@ -76,6 +76,12 @@ ON skus(style_id);
 
 CREATE INDEX idx_related_product_id
   ON related(current_product_id);
+
+CREATE INDEX idx_styles_product ON styles(product_id);
+
+CREATE INDEX idx_photos_styles ON photos(style_id);
+
+CREATE INDEX idx_skus_styles ON skus(style_id);
 
 INSERT INTO products(id, product_id, name, slogan, description, category, default_price) VALUES
   (DEFAULT, 1, 'test', 'sooper-dooper!', 'this should not break', 'tester', 900),
