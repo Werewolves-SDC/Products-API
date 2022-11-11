@@ -30,9 +30,11 @@ router.get('/product/:id', async (req, res) => {
 });
 
 router.get('/styles/:id', async (req, res) => {
-  console.log('made it')
   const { id } = req.params;
-  const { rows: styleDetails } = await db.query(query.styleDetails, [id]);
-  console.log('style details', styleDetails);
-  res.status(200).send(styleDetails[0]);
+  const { rows: styles } = await db.query(query.styleDetails, [id]);
+  const styleDetails = {
+    product_id: id,
+    results: styles,
+  };
+  res.status(200).send(styleDetails);
 });
