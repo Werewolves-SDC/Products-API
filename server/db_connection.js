@@ -12,15 +12,6 @@ const pool = new Pool(config);
 
 pool.connect();
 
-// TODO: remove logs from prod code
-// pool.on('connect', () => {
-//   console.log('postgres pool connected, awaiting queries');
-// });
-
-// pool.on('error', (err) => {
-//   console.log('error connecting db_pool', err);
-// });
-
 // receives query info from routes
 module.exports = {
   query: (text, params) => pool.query(text, params)
