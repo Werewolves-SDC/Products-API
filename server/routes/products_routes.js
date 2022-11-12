@@ -38,3 +38,9 @@ router.get('/styles/:id', async (req, res) => {
   };
   res.status(200).send(styleDetails);
 });
+
+router.get('/skus/:id', async (req, res) => {
+  const { id } = req.params;
+  const { rows: skus } = await db.query(query.skus, [id]);
+  res.status(200).send(skus);
+});
